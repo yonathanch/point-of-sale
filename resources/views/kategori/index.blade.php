@@ -6,14 +6,7 @@
             <h4 class="card-title">Data Kategori</h4>
         </div>
         <div class="card-body">
-            @if ($errors->any())
-                {{-- admin lte wajib tambahin default pada alert untuk warna subtle --}}
-                <div class="alert alert-default-danger d-flex flex-column">
-                    @foreach ($errors->all() as $error)
-                        <small class="text-danger my-2">{{ $error }}</small>
-                    @endforeach
-                </div>
-            @endif
+            <x-alert :errors="$errors" />
             <div class="d-flex justify-content-end mb-2">
                 <x-kategori.form-kategori />
             </div>
@@ -36,7 +29,7 @@
                                 <div class="d-flex align-items-center ">
                                     <x-kategori.form-kategori :id="$item->id" />
                                     <a href="{{ route('master-data.kategori.destroy', $item->id) }}"
-                                        data-confirm-delete="true" class="btn btn-danger">
+                                        data-confirm-delete="true" class="btn btn-danger mx-1">
                                         <i class="fas fa-trash"></i>
                                     </a>
                                 </div>

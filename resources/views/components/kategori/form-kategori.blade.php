@@ -1,6 +1,11 @@
 <button type="button" class="btn {{ $id ? 'btn-warning' : 'btn-primary' }}" data-toggle="modal"
     data-target="#formKategori{{ $id ?? '' }}">
-    {{ $id ? 'Edit' : 'Tambah Kategori' }}
+    {{-- {{ $id ? 'Edit' : 'Tambah Kategori' }} --}}
+    @if ($id)
+        <i class="far fa-edit"></i>
+    @else
+        Tambah Kategori
+    @endif
 </button>
 <div class="modal fade" id="formKategori{{ $id ?? '' }}">
     <form action="{{ route('master-data.kategori.store') }}" method="POST">
@@ -29,8 +34,8 @@
 
                 </div>
                 <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
             </div>
     </form>
