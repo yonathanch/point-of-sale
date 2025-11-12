@@ -23,6 +23,13 @@ class Aside extends Component
                 'is_dropdown' => false
             ],
             [
+                'label' => 'Data User',
+                'icon' => 'fas fa-users',
+                'route_name' => 'users.index',
+                'route_active' => 'users.*',
+                'is_dropdown' => false
+            ],
+            [
                 'label' => 'Master Data',
                 'icon' => 'fas fa-database',
                 'route_active' => 'master-data.*',
@@ -41,6 +48,13 @@ class Aside extends Component
                     'route_name' => 'master-data.product.index'
                     ]
                 ]
+            ],
+            [
+                'label' => 'Penerimaan Barang',
+                'icon' => 'fas fa-dolly',
+                'route_name' => 'penerimaan-barang.index',
+                'route_active' => 'penerimaan-barang.*',
+                'is_dropdown' => false
             ]
         ];
     }

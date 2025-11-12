@@ -73,4 +73,21 @@ class ProductController extends Controller
         toast()->success('Data Berhasil Dihapus');
         return redirect()->route('master-data.product.index');
     }
+
+    public function getData()
+    {
+        $search = request()->query('search');
+
+        $query = Product::query();
+        $product = $query->where('nama_produk', 'like', '%' . $search . '%')->get();
+        return response()->json($product);
+    }
+
+    public function cekStok()
+    {
+        $id = request()->query('id');
+  
+        $stok = Product::find($id)->stok;
+        return response()->json($stok);
+    }
 }
