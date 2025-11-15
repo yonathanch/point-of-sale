@@ -10,11 +10,17 @@ class PenerimaanBarang extends Model
 
     public static function nomorPenerimaan()
     {
-        // PBR-2305250001
+        // PBR-2010250001
         $max = self::max('id');
         $prefix = 'PBR-';
         $date = date('dmy');
         $nomor = $prefix . $date . str_pad($max + 1, 4, '0', STR_PAD_LEFT);
         return $nomor;
+    }
+
+    //realationship untuk get barang
+    public function items()
+    {
+        return $this->hasMany(ItemPenerimaanBarang::class, 'nomor_penerimaan', 'nomor_penerimaan');
     }
 }

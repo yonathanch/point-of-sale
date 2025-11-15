@@ -44,6 +44,10 @@
                         <label for="">Qty</label>
                         <input type="number" id="qty" class="form-control mx-1" style="width:100px" min="1">
                     </div>
+                    <div>
+                        <label for="">Harga Beli</label>
+                        <input type="number" id="harga_beli" class="form-control mx-1" style="width:250px" min="1">
+                    </div>
                     <div style="padding-top: 35px">
                         <button type="button" class="btn-primary" id="btn-add">Tambahkan</button>
                     </div>
@@ -58,6 +62,8 @@
                     <tr>
                         <th>Nama Produk</th>
                         <th>Qty</th>
+                        <th>Harga Beli</th>
+                        <th>Sub Total</th>
                         <th>Opsi</th>
                     </tr>
                 </thead>
@@ -121,6 +127,8 @@
                 const selectedId = $("#select2").val();
                 const qty = $("#qty").val();
                 const currentStok = $("#current_stok").val();
+                const hargaBeli = $("#harga_beli").val();
+                const subTotal = parseInt(qty) * parseInt(hargaBeli);
 
                 if (!selectedId || !qty) {
                     alert('Harap Pilih Produk Dan Tentukan Jumlahnya');
@@ -133,6 +141,10 @@
                 }
 
                 const produk = selectedProduk[selectedId];
+                if (!produk) {
+                    alert('Produk Tidak Ada');
+                    return;
+                }
 
                 //jika nama produk sudah ada di list maka qty saja yg bertambah bkn jadi 2 baris
                 let exist = false;
@@ -153,9 +165,11 @@
 
                     // tambahkan data baru
                     const row = `
-                        <tr>
+                        <tr data-id="${produk.id}">
                             <td>${produk.nama_produk}</td>
                             <td>${qty}</td>
+                            <td>${hargaBeli}</td>
+                            <td>${subTotal}</td>
                             <td>
                                 <button class="btn btn-danger btn-sm btn-remove">
                                     <i class="fas fa-trash"></i>
@@ -169,6 +183,7 @@
 
                 $("#select2").val(null).trigger("change");
                 $("#qty").val(null);
+                $("#harga_beli").val(null);
                 $("#current_stok").val(null);
             });
             $("#table-produk").on("click", ".btn-remove", function() {
@@ -182,13 +197,22 @@
                     const namaProduk = $(row).find("td:eq(0)").text();
                     const qty = $(row).find("td:eq(1)").text();
                     const produkId = $(row).data("id");
+                    const hargaBeli = $(row).find("td:eq(2)").text();
+                    const subTotal = $(row).find("td:eq(3)").text();
 
                     const inputProduk =
                         `<input type="hidden" name="produk[${index}][nama_produk]" value="${namaProduk}"/>`;
                     const inputQty =
                         `<input type="hidden" name="produk[${index}][qty]" value="${qty}"/>`;
+                    const inputProdukId =
+                        `<input type="hidden" name="produk[${index}][produk_id]" value="${produkId}"/>`;
+                    const inputHargaBeli =
+                        `<input type="hidden" name="produk[${index}][harga_beli]" value="${hargaBeli}"/>`;
+                    const inputSubTotal =
+                        `<input type="hidden" name="produk[${index}][sub_total]" value="${subTotal}"/>`;
 
-                    $("#data-hidden").append(inputProduk).append(inputQty);
+                    $("#data-hidden").append(inputProduk).append(inputQty).append(inputProdukId)
+                        .append(inputHargaBeli).append(inputSubTotal);
                 });
             });
         });

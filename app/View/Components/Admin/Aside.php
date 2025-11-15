@@ -55,7 +55,21 @@ class Aside extends Component
                 'route_name' => 'penerimaan-barang.index',
                 'route_active' => 'penerimaan-barang.*',
                 'is_dropdown' => false
-            ]
+            ],
+             [
+                'label' => 'Laporan',
+                'icon' => 'fas fa-file',
+                'route_active' => 'laporan.*',
+                'is_dropdown' => true,
+                'dropdown' => [
+                    [
+                    'label' => 'Penerimaan Barang',
+                    'icon' => 'far fa-circle',
+                    'route_active' => 'laporan.penerimaan-barang.*',
+                    'route_name' => 'laporan.penerimaan-barang.laporan'
+                    ]
+                ]
+            ],
         ];
     }
 
